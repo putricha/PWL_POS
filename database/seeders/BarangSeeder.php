@@ -83,7 +83,8 @@ class BarangSeeder extends Seeder
                 'barang_nama' => 'Mama lemon',
                 'harga_beli' => 5000,
                 'harga_jual' => 10000,
-            ],
+            ]
+            
         ];
 
         DB::table('m_barang')->insert($data);
