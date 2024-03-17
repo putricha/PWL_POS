@@ -32,7 +32,7 @@ class UserController extends Controller
         //     'nama' => 'Manager 3',
         //     'password' => Hash::make('12345'),
         // ];
-        
+
         // UserModel::create($data);
 
         // $user = UserModel::firstwhere('level_id',1);
@@ -47,16 +47,64 @@ class UserController extends Controller
         //$user = UserModel::where('level_id',2,)->count();
         // dd($user);
 
-        $user = UserModel::firstOrNew(
-            [
-                'username' => 'manager33',
-                'nama' => 'Manager Tiga Tiga',
-                'password' => Hash::make('12345'),
-                'level_id' => 2
-            ]
-        );
+        // $user = UserModel::firstOrNew(
+        //     [
+        //         'username' => 'manager33',
+        //         'nama' => 'Manager Tiga Tiga',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        //     ]
+        // );
+        // $user->save();
+        // return view('user', ['data' => $user]);
+
+        // $user = UserModel::create([
+        //         'username' => 'manager44',
+        //         'nama' => 'Manager44',
+        //         'password' => Hash::make('12345'),
+        //         'level_id' => 2
+        // ]);
+
+        // $user->username = 'manager45';
+
+        // $user->isDirty(); //t
+        // $user->isDirty('username'); //t
+        // $user->isDirty('nama'); //f
+        // $user->isDirty(['nama','username']); //t
+
+        // $user->isClean(); //f
+        // $user->isClean('username'); //f
+        // $user->isClean('nama'); //t
+        // $user->isClean(['nama', 'username']); //f
+
+        // $user->save();
+        // $user->isDirty(); //f
+        // $user->isClean(); //t
+
+        // dd($user->isDirty());
+
+
+        $user = UserModel::create([
+            'username' => 'manager11',
+            'nama' => 'Manager11',
+            'password' => Hash::make('12345'),
+            'level_id' => 2
+        ]);
+
+        $user->username='manager12';
         $user->save();
-        return view('user', ['data' => $user]);
+
+        $user->wasChanged(); //t
+        $user->wasChanged('username'); //t
+        $user->wasChanged(['username','level_id']); //t
+        $user->wasChanged('nama'); //f
+        dd($user->wasChanged(['nama','username']));
+
+
+
+
+
+
 
     }
 }
