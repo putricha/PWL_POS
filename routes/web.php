@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\POSController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,5 +46,6 @@ Route::post('/kategori', [KategoriController::class, 'store']);
 Route::get('/kategori/ubah/{id}', [KategoriController::class, 'ubah']);
 Route::put('/kategori/ubah_simpan/{id}', [KategoriController::class, 'ubah_simpan']);
 Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus']);
+Route::resource('m_user', POSController :: class);
 
 
