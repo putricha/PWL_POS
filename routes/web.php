@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\POSController;
+use App\Http\Controllers\StokController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/level',[LevelController::class, 'index']);
+// Route::get('/level',[LevelController::class, 'index']);
 Route::get('/user',[UserController::class, 'index']);
 
 Route::get('/user/tambah',[UserController::class, 'tambah']);
@@ -41,13 +44,13 @@ Route::get('/user/hapus/{id}', [UserController::class, 'hapus']);
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
-Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
-Route::post('/kategori', [KategoriController::class, 'store']);
-Route::get('/kategori/ubah/{id}', [KategoriController::class, 'ubah']);
-Route::put('/kategori/ubah_simpan/{id}', [KategoriController::class, 'ubah_simpan']);
-Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus']);
-Route::resource('m_user', POSController::class);
+// Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+// Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+// Route::post('/kategori', [KategoriController::class, 'store']);
+// Route::get('/kategori/ubah/{id}', [KategoriController::class, 'ubah']);
+// Route::put('/kategori/ubah_simpan/{id}', [KategoriController::class, 'ubah_simpan']);
+// Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus']);
+// Route::resource('m_user', POSController::class);
 
 //Jobsheet 7
 Route::get('/', [WelcomeController::class, 'index']);
@@ -61,4 +64,97 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/{id}/edit', [UserController::class, 'edit']);
     Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
+});
+
+// Route::group(['prefix' => 'level'], function () {
+//     Route::get('/', [LevelController::class, 'index']);
+//     Route::post('/list', [LevelController::class, 'list']);
+//     Route::get('/create', [LevelController::class, 'create']);
+//     Route::post('/', [LevelController::class, 'store']);
+//     Route::get('/{id}', [LevelController::class, 'show']);
+//     Route::get('/{id}/edit', [LevelController::class, 'edit']);
+//     Route::put('/{id}', [LevelController::class, 'update']);
+//     Route::delete('/{id}', [LevelController::class, 'destroy']);
+// });
+
+
+
+Route::group(['prefix' => 'level'], function () {
+    Route::get('/', [LevelController::class, 'index']);
+    Route::post('/list', [LevelController::class, 'list']);
+    Route::get('/create', [LevelController::class, 'create']);
+    Route::post('/', [LevelController::class, 'store']);
+    Route::get('/{id}', [LevelController::class, 'show']);
+    Route::get('/{id}/edit', [LevelController::class, 'edit']);
+    Route::put('/{id}', [LevelController::class, 'update']);
+    Route::delete('/{id}', [LevelController::class, 'destroy']);
+});
+
+//KATEGORI
+Route::group(['prefix' => 'kategori'], function () {
+    Route::get('/', [KategoriController::class, 'index']);
+    Route::post('/list', [KategoriController::class, 'list']);
+    Route::get('/create', [KategoriController::class, 'create']);
+    Route::post('/', [KategoriController::class, 'store']);
+    Route::get('/{id}', [KategoriController::class, 'show']);
+    Route::get('/{id}/edit', [KategoriController::class, 'edit']);
+    Route::put('/{id}', [KategoriController::class, 'update']);
+    Route::delete('/{id}', [KategoriController::class, 'destroy']);
+});
+
+//M_USER
+Route::get('/m_user', [POSController::class, 'index'])->name('m_user.index');
+Route::get('/m_user/show/{id}', [POSController::class, 'show'])->name('m_user.show');
+Route::get('/m_user/create', [POSController::class, 'create'])->name('m_user.create');
+Route::post('/m_user', [POSController::class, 'store'])->name('m_user.store');
+Route::get('/m_user/edit/{id}', [POSController::class, 'edit'])->name('m_user.edit');
+Route::put('/m_user/update/{id}', [POSController::class, 'update'])->name('m_user.update');
+Route::delete('/m_user/delete/{id}', [POSController::class, 'destroy'])->name('m_user.destroy');
+
+//User
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', [UserController::class, 'index']);
+    Route::post('/list', [UserController::class, 'list']);
+    Route::get('/create', [UserController::class, 'create']);
+    Route::post('/', [UserController::class, 'store']);
+    Route::get('/{id}', [UserController::class, 'show']);
+    Route::get('/{id}/edit', [UserController::class, 'edit']);
+    Route::put('/{id}', [UserController::class, 'update']);
+    Route::delete('/{id}', [UserController::class, 'destroy']);
+});
+
+//BARANG
+Route::group(['prefix' => 'barang'], function () {
+    Route::get('/', [BarangController::class, 'index']);
+    Route::post('/list', [BarangController::class, 'list']);
+    Route::get('/create', [BarangController::class, 'create']);
+    Route::post('/', [BarangController::class, 'store']);
+    Route::get('/{id}', [BarangController::class, 'show']);
+    Route::get('/{id}/edit', [BarangController::class, 'edit']);
+    Route::put('/{id}', [BarangController::class, 'update']);
+    Route::delete('/{id}', [BarangController::class, 'destroy']);
+});
+
+//BARANG
+Route::group(['prefix' => 'stok'], function () {
+    Route::get('/', [StokController::class, 'index']);
+    Route::post('/list', [StokController::class, 'list']);
+    Route::get('/create', [StokController::class, 'create']);
+    Route::post('/', [StokController::class, 'store']);
+    Route::get('/{id}', [StokController::class, 'show']);
+    Route::get('/{id}/edit', [StokController::class, 'edit']);
+    Route::put('/{id}', [StokController::class, 'update']);
+    Route::delete('/{id}', [StokController::class, 'destroy']);
+});
+
+//BARANG
+Route::group(['prefix' => 'transaksi'], function () {
+    Route::get('/', [TransaksiController::class, 'index']);
+    Route::post('/list', [TransaksiController::class, 'list']);
+    Route::get('/create', [TransaksiController::class, 'create']);
+    Route::post('/', [TransaksiController::class, 'store']);
+    Route::get('/{id}', [TransaksiController::class, 'show']);
+    Route::get('/{id}/edit', [TransaksiController::class, 'edit']);
+    Route::put('/{id}', [TransaksiController::class, 'update']);
+    Route::delete('/{id}', [TransaksiController::class, 'destroy']);
 });

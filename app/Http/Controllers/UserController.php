@@ -8,6 +8,7 @@ use App\Models\LevelModel;
 use Illuminate\Support\Facades\Hash;
 use App\DataTables\UserDataTable;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Database\QueryException;
 
 
 class UserController extends Controller
@@ -24,12 +25,20 @@ class UserController extends Controller
 
         $activeMenu = 'user'; // set menu yang sedang aktif
 
-        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'activeMenu' => $activeMenu]);
+        $level = LevelModel::all();
+
+        return view('user.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
     }
     public function list(Request $request)
     {
         $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
             ->with('level');
+
+        //Filter berdasarkan level_id
+        if ($request->level_id) {
+            $users->where('level_id', $request->level_id);
+        }
+
         return DataTables::of($users)
             ->addIndexColumn()
             ->addColumn('aksi', function ($user) { // menambahkan kolom aksi
@@ -126,5 +135,19 @@ class UserController extends Controller
         ]);
 
         return redirect('/user')->with('success', 'Data user berhasil diubah');
+    }
+    public function destroy(string $id)
+    {
+        $check = UserModel::find($id);
+        if (!$check) { // untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
+            return redirect('/user')->with('error', 'Data user tidak ditemukan');
+        }
+        try {
+            UserModel::destroy($id); // Hapus data level
+            return redirect('/user')->with('success', 'Data user berhasil dihapus');
+        } catch (QueryException $e) {
+            // Jika terjadi error ketika menghapus data, redirect kembali ke halaman dengan membawa pesan error
+            return redirect('/user')->with('error', 'Data user gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
     }
 }
