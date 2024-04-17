@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class BarangModel extends Model
@@ -23,5 +24,9 @@ class BarangModel extends Model
     public function stok(): HasOne
     {
         return $this->hasOne(StokModel::class, 'barang_id', 'barang_id');
+    }
+    public function detailTransaksi(): HasMany
+    {
+        return $this->hasMany(DetailTransaksiModel::class, 'barang_id', 'barang_id');
     }
 }
