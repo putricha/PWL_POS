@@ -11,6 +11,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -181,3 +182,9 @@ Route::group(['prefix' => 'transaksi'], function () {
 
 //Praktikum 1
 Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
+
+//Praktikum 2
+Route::post('/login3', App\Http\Controllers\Api\LoginController::class)->name('login');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
