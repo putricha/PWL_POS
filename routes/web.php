@@ -178,3 +178,6 @@ Route::group(['prefix' => 'transaksi'], function () {
     Route::put('/{id}', [TransaksiController::class, 'update']);
     Route::delete('/{id}', [TransaksiController::class, 'destroy']);
 });
+
+//Praktikum 1
+Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
