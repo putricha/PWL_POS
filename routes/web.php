@@ -191,3 +191,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Praktikum 3
 Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
+
+//Praktikum 4
+Route::get('levels', [LevelController::class, 'index']);
+Route::post('levels', [LevelController::class, 'store']);
+Route::get('levels/{level}', [LevelController::class, 'show']);
+Route::put('levels/{level}', [LevelController::class, 'update']);
+Route::delete('levels/{level}', [LevelController::class, 'destroy']);
