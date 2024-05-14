@@ -26,7 +26,7 @@
             <div class="form-group row">
                 <label class="col-2 control-label col-form-label">Kode Penjualan</label>
                 <div class="col-10">
-                    <input type="text" class="form-control" id="penjualan_kode" name="penjualan_kode" value="{{ old('penjualan_kode') }}" required>
+                    <input type="text" class="form-control" id="penjualan_kode" name="penjualan_kode" value="{{ old('penjualan_kode')  }} {{ $lastID }} " required>
                     @error('penjualan_kode')
                     <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
@@ -55,7 +55,7 @@
                 <h3 class="card-title">Tambah Detail Transaksi</h3>
                 <div class="card-tools"></div>
             </div>
-            <button type="button" class="btn btn-sm btn-info mb-4" id="btn-tambah-barang" onclick="addBarangRow()">
+            <button type="button" class="btn btn-sm btn-warning mb-4" id="btn-tambah-barang" onclick="addBarangRow()">
                 Tambah Barang
             </button>
             <div class="form-group">

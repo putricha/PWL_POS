@@ -53,6 +53,21 @@ class TransaksiController extends Controller
             ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
+    // public function create()
+    // {
+    //     $breadcrumb = (object) [
+    //         'title' => 'Tambah Transaksi',
+    //         'list' => ['Home', 'Transaksi', 'Tambah']
+    //     ];
+    //     $page = (object) [
+    //         'title' => 'Tambah transaksi baru'
+    //     ];
+    //     $user = UserModel::all(); // ambil data level untuk ditampilkan di form $activeMenu 'user'; // set menu yang sedang aktif
+    //     $barang = BarangModel::all();
+    //     $activeMenu = 'penjualan';
+
+    //     return view('transaksi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+    // }
     public function create()
     {
         $breadcrumb = (object) [
@@ -62,12 +77,17 @@ class TransaksiController extends Controller
         $page = (object) [
             'title' => 'Tambah transaksi baru'
         ];
-        $user = UserModel::all(); // ambil data level untuk ditampilkan di form $activeMenu 'user'; // set menu yang sedang aktif
+        $user = UserModel::all();
         $barang = BarangModel::all();
         $activeMenu = 'penjualan';
 
-        return view('transaksi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu]);
+        // Mengambil ID transaksi terakhir
+        $lastTransaksi = TransaksiModel::latest()->first();
+        $lastID = $lastTransaksi ? $lastTransaksi->penjualan_id + 1 : 1;
+
+        return view('transaksi.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'barang' => $barang, 'activeMenu' => $activeMenu, 'lastID' => 'PJ'.$lastID]);
     }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -128,7 +148,9 @@ class TransaksiController extends Controller
 
         $activeMenu = 'penjualan'; // set menu yang sedang aktif
 
-        return view('transaksi.show', compact('breadcrumb', 'page', 'transaksi', 'activeMenu', 'detail'));
+        $lastID = 5;
+
+        return view('transaksi.show', compact('breadcrumb', 'page', 'transaksi', 'activeMenu', 'detail', 'lastID'));
     }
     // Menampilkan halaman form edit user
     public function edit(string $id)

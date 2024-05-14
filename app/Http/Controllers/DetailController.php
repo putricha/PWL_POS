@@ -98,6 +98,7 @@ class DetailController extends Controller
         $page = (object) [
             'title' => 'Detail Transaksi'
         ];
+        
 
         $activeMenu = 'penjualan'; // set menu yang sedang aktif
 
