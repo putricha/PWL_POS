@@ -63,3 +63,10 @@ Route::delete('barangs/{barang}', [BarangController::class, 'destroy']);
 
 //JOBSHEET 11
 Route::post('/register1',App\Http\Controllers\Api\RegisterController::class);
+
+Route::post('barangs1', [BarangController::class, 'store']);
+Route::get('barangs1', [BarangController::class, 'index']);
+Route::post('barangs1', [BarangController::class, 'store']);
+Route::get('barangs1/{barang}', [BarangController::class, 'show']);
+Route::put('barangs1/{barang}', [BarangController::class, 'update']);
+Route::delete('barangs1/{barang}', [BarangController::class, 'destroy']);
