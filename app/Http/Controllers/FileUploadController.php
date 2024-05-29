@@ -27,27 +27,44 @@ class FileUploadController extends Controller
 
         //     echo $request->berkas->getClientOriginalName()."lolos validasi";
 
+        // $request->validate([
+        //     'berkas' => 'required|file|image|max:500'
+        // ]);
+        // $extfile = $request->berkas->getClientOriginalName();
+        // $nameFile =  $request->nama;
+
+        // $path = $request->berkas->move('gambar', $nameFile);
+        // $path = str_replace("\\","//",$path);
+        // echo "Variabel path berisi: $path<br>";
+
+
+        // $pathBaru = asset('gambar/' . $nameFile);
+        // echo "proses upload berhasil, data disimpan pada :$path";
+        // echo "<br>";
+        // echo "Tampilkan link:<a href='$pathBaru'> $pathBaru</a>";
+
+        // echo $request->berkas->getClientOriginalName() . "lolos validasi";
+        //TUGAS
         $request->validate([
-            'berkas' => 'required|file|image|max:500'
+            'berkas' => 'required|file|image|max:500',
+            'nama' => 'required|string'
         ]);
-        $extfile = $request->berkas->getClientOriginalName();
-        $nameFile =  'web-' . time() . "." . $extfile;
+        // $extfile = $request->berkas->getClientOriginalName();
+        // $namaFile = 'web-'.time().".".$extfile;
 
-        $path = $request->berkas->move('gambar', $nameFile);
-        $path = str_replace("\\","//",$path);
-        echo "Variabel path berisi: $path<br>";
+        // $path = $request->berkas->storeAs('public', $namaFile);
+        $path = $request->berkas->move('gambar', $request->nama);
+        $path = str_replace("\\", "/", $path);
+        echo "Variabel path berisi: $path <br>";
 
-
-        $pathBaru = asset('gambar/' . $nameFile);
-        echo "proses upload berhasil, data disimpan pada :$path";
-        echo "<br>";
-        echo "Tampilkan link:<a href='$pathBaru'> $pathBaru</a>";
-
-        echo $request->berkas->getClientOriginalName() . "lolos validasi";
+        $pathBaru = asset('gambar/' . $request->nama);
+        echo "Proses upload berhasil, data disimpan pada: $path <br>";
+        // echo "Tampilkan link:<a href='$pathBaru'>$pathBaru</a>";
+        echo "<img src='$pathBaru' alt='Uploaded Image'>";
 
 
 
-        
+
         // if ($request->hasFile('berkas')) {
         //     echo "path(): " . $request->berkas->path();
         //     echo "<br>";

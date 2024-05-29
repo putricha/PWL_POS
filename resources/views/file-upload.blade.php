@@ -1,7 +1,7 @@
 <DOCTYPE html>
     <html lang="en">
 
-    
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,10 @@
 
             <form action="{{ url('/file-upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" class="form-control" id="nama" name="nama">
+                </div>
                 <div class="mb-3">
                     <label for="berkas" class="form-label">Gambar Profile</label>
                     <input type="file" class="form-control" id="berkas" name="berkas">
